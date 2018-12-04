@@ -1,8 +1,5 @@
-
-% HELLO
-
 %Defining given constants
-P=300000;
+P=30000;
 T=2500;
 L1=0.180;
 L2=0.120;
@@ -24,13 +21,14 @@ ri1=[0.02262187];
 ro2=[0.01984375];
 ri2=[0.01706563];
 
-[weight, twist, delta, effect_stress] = bar_params(ro1,ri1,ro2,ri2,P,T,G,E,L1,L2,density)
+[weight, twist, delta, effect_stress] = bar_params(ro1,ri1,ro2,ri2,P,T,G,E,L1,L2,density);
 
 
 if condition
     disp('pass')
 else
     disp('fail')
+end
 
 %Prop. of AL 7016-T5
 %G=27*10^9;
