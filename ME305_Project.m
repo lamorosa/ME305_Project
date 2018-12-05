@@ -23,11 +23,14 @@ L=L1+L2;
 twist_max=0.05;
 delta_tot= 0.002;
 
+% Raius values at the fixed end
 ro1=[in2m(1.5)];
-ri1=[in2m(1:.125:1.4)];
+ri1=[in2m(1.05:.1:1.45)];
 
+% Radius values at the end of the taper; torque is applied here
 ro2=[in2m(1.25)];
-ri2=[in2m(.75:.125:1.15)];
+ri2=[in2m(.8:.1:1.2)];
+
 
 % Struct with best performing configuration
 optimal_beam = struct('Material','','Weight',100000000,'ro1',ro1,'ri1',0,'ro2',ro2,'ri2',0);
@@ -38,9 +41,12 @@ for mats = 1:6
         'delta',[],'effect_stress',[]);
 end
 
-loop_val = 1;
+
+% loop_val = 1;
 % Loop through bar geometries and materials to find best performance
+iter = 1;
 for k = 1:length(materials)
+    fprintf('\nTest runs for %s\n',materials(k).Material) 
     for i = 1:length(ri1)
         for j = 1:length(ri2)
             [weight,twist,delta,effect_stress] = bar_params(ro1,ri1(i),ro2,ri2(j),P,T,materials(k).G,...
@@ -61,16 +67,19 @@ for k = 1:length(materials)
                     optimal_beam.Weight = weight;
                     optimal_beam.ri1 = ri1(i);
                     optimal_beam.ri2 = ri2(j);
-                    iter = i * j * k;
+                    
                     fprintf('Optimal Updated with %s, iteration %d...\n',materials(k).Material,iter)
+                    iter = iter+1;
                 else
                     fprintf('%s, iteration %d, Passed but not optimal...\n',materials(k).Material,iter)
+                    iter = iter+1;
                 end
             else
                 fprintf('Failed; Try harder...\n')
+                iter = iter+1;
             end
-            disp(loop_val)
-            loop_val = loop_val+1;
+%             disp(loop_val)
+%             loop_val = loop_val+1;
         end
     end
 end
