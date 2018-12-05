@@ -9,6 +9,9 @@ clc
 % materials = struct('Material','AL','G',2.7*10^10,'E',7.1*10^10,'Density',2780,'Y',315*10^6);
 % materials(2) = struct('Material','Steel','G',3.1*10^10,'E',9.5*10^10,'Density',4300,'Y',415*10^6);
 
+% Initialize materials struct
+materials = struct_creation();
+
 %Defining given constants
 P=30000;
 T=2500;
@@ -27,11 +30,11 @@ ro2=[in2m(1.25)];
 ri2=[in2m(.75:.125:1.15)];
 
 % Struct with best performing configuration
-optimal_beam = struct('Material','','Weight',100000000,'ro1',1.5,'ri1',0,'ro2',1.25,'ri2',0);
+optimal_beam = struct('Material','','Weight',100000000,'ro1',ro1,'ri1',0,'ro2',ro2,'ri2',0);
 
 % Store all data from test
 for mats = 1:6
-    data(mats) = struct('Material','','Weight',[],'ro1',1.5,'ri1',[],'ro2',1.25,'ri2',[],'twist',[],...
+    data(mats) = struct('Material','','Weight',[],'ro1',ro1,'ri1',[],'ro2',ro2,'ri2',[],'twist',[],...
         'delta',[],'effect_stress',[]);
 end
 
