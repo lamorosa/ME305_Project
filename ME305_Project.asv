@@ -10,15 +10,13 @@ twist_max=0.05;
 delta_tot= 0.002;
 
 ro1=[in2m(1.5)];
-ri1=[in2m(1:.125:1.4)];
+ri1=[in2m(.625:.125:1.875)];
 
 ro2=[in2m(1.25)];
-ri2=[in2m(.75:.125:1.15)];
+ri2=[in2m(.375:.125:1.625)];
 
-% Struct with best performing configuration
 optimal_beam = struct('Material','','Weight',100000000,'ro1',1.5,'ri1',0,'ro2',1.25,'ri2',0);
 
-% Loop through bar geometries and materials to find best performance
 for i = 1:length(ri1)
     for j = 1:length(ri2)
         for k = 1:length(materials)
@@ -47,12 +45,12 @@ end
 
 
 
-% %Material specific calculations
-% G=27*10^9;
-% E=71.*10^9;
-% density=[2780];
-% stress_max=315*10^6;
+%Material specific calculations
+G=27*10^9;
+E=71.*10^9;
+density=[2780];
+stress_max=315*10^6;
 
-% save('Variables_AL-7016-T5_Test1.mat','G','E','density','stress_max','ro1','ri1','ro2','ri2')
-% 
-% disp('Results for AL-7016-T5, Test1')
+save('Variables_AL-7016-T5_Test1.mat','G','E','density','stress_max','ro1','ri1','ro2','ri2')
+
+disp('Results for AL-7016-T5, Test1')
