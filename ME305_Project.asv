@@ -6,8 +6,8 @@ clear
 clc
 
 % Test case
-% materials = struct('Material','AL','G',2.7*10^10,'E',7.1*10^10,'Density',2780,'Y',315*10^6);
-% materials(2) = struct('Material','Steel','G',3.1*10^10,'E',9.5*10^10,'Density',4300,'Y',415*10^6);
+materials = struct('Material','AL','G',2.7*10^10,'E',7.1*10^10,'Density',2780,'Y',315*10^6);
+materials(2) = struct('Material','Steel','G',3.1*10^10,'E',9.5*10^10,'Density',4300,'Y',415*10^6);
 
 %Defining given constants
 P=30000;
@@ -61,7 +61,6 @@ for k = 1:length(materials)
                     iter = i * j * k;
                     fprintf('Optimal Updated with %s, iteration %d...\n',materials(k).Material,iter)
                 else
-                    fprintf('%s, iteration %d, Passed but not optimal...\n',materials(k).Material,iter)
                 end
             else
                 fprintf('Failed; Try harder...\n')
@@ -71,3 +70,17 @@ for k = 1:length(materials)
         end
     end
 end
+
+
+
+
+
+% %Material specific calculations
+% G=27*10^9;
+% E=71.*10^9;
+% density=[2780];
+% stress_max=315*10^6;
+
+% save('Variables_AL-7016-T5_Test1.mat','G','E','density','stress_max','ro1','ri1','ro2','ri2')
+% 
+% disp('Results for AL-7016-T5, Test1')
