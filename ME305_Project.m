@@ -24,12 +24,12 @@ twist_max=0.05;
 delta_tot= 0.002;
 
 % Raius values at the fixed end
-ro1=[in2m(1.5)];
-ri1=[in2m(1.05:.1:1.45)];
+ro1=[in2m(1.75)]; %1.5
+ri1=[in2m(1.5:.05:1.7)]; %1.05:.1:1.49
 
 % Radius values at the end of the taper; torque is applied here
 ro2=[in2m(1.25)];
-ri2=[in2m(.8:.1:1.2)];
+ri2=[in2m(1.0:.05:1.2)];
 
 
 % Struct with best performing configuration
