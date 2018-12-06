@@ -24,12 +24,12 @@ twist_max=0.05;
 delta_tot= 0.002;
 
 % Raius values at the fixed end
-ro1=[in2m(1:.25:1.75)]; %1.5
-ri1=[in2m(.01:.02:.125)]; %1.05:.1:1.49
+ro1=[in2m(1.25:.1:2.0)]; %1.5
+ri1=[in2m(.01:.015:.125)]; %1.05:.1:1.49
 
 % Radius values at the end of the taper; torque is applied here
-ro2=[in2m(.125:.125:.625)];
-ri2=[in2m(.01:.02:.125)];
+ro2=[in2m(0:.125:.625)];
+ri2=[in2m(.01:.015:.125)];
 
 
 % Struct with best performing configuration
@@ -54,8 +54,10 @@ for k = 1:length(materials)
                     ro2_ = ro1(p)-ro2(t);
                     ri1_ = ro1(p)-ri1(i);
                     ri2_ = ro2_-ri2(j);
+                    
                     [weight,twist,delta,effect_stress] = bar_params(ro1(p),ri1_,ro2_,ri2_,P,T,materials(k).G,...
                         materials(k).E,L1,L2,materials(k).Density);
+                    
                     data(k).Material = materials(k).Material;
                     data(k).Weight(end+1) = weight;
                     data(k).twist(end+1) = twist;
@@ -94,4 +96,5 @@ for k = 1:length(materials)
         end
     end
 end
+save('Results_Aluminum_Only')
 
