@@ -69,7 +69,7 @@ for k = 1:length(materials)
                     data(k).ro2(end+1) = ro2_;
                     
                     % If bar configuration passes strength requirements
-                    if (twist<(twist_max./2)) && (delta<(delta_tot./2)) && (effect_stress<(materials(k).Y./2))
+                    if (twist<(twist_max)) && (delta<(delta_tot)) && (effect_stress<(materials(k).Y./2))
                         % Write current bar configurations to the struct of optimal design
                         if (weight > 0) && (weight < optimal_beam.Weight)
                             optimal_beam.Material = materials(k).Material;
@@ -96,5 +96,5 @@ for k = 1:length(materials)
         end
     end
 end
-save('Results_Aluminum_Only')
+save('Results_Aluminum_Only_ChangedSafetyFactor')
 
