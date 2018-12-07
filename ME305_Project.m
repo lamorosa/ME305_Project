@@ -24,16 +24,19 @@ twist_max=0.05;
 delta_tot= 0.002;
 
 % Raius values at the fixed end
-ro1=[in2m(1.25:.1:2.0)]; %1.5
-ri1=[in2m(.01:.015:.125)]; %1.05:.1:1.49
+ro1=[in2m(1.6:.02:2)]; %1.5
+ri1=[in2m(.1:.02:.15)]; %1.05:.1:1.49
 
 % Radius values at the end of the taper; torque is applied here
-ro2=[in2m(0:.125:.625)];
-ri2=[in2m(.01:.015:.125)];
+ro2=[in2m(0:.05:.2)];
+ri2=[in2m(.1:.02:.15)];
 
+computations = length(ro1)*length(ri1)*length(ro2)*length(ri2)*length(materials);
+fprintf('About to perform %d computations...\n',computations)
 
 % Struct with best performing configuration
-optimal_beam = struct('Material','','Weight',100000000,'ro1',0,'ri1',0,'ro2',0,'ri2',0);
+optimal_beam = struct('Material','','Weight',100000000,'ro1',[],'ri1',[],'ro2',[],'ri2',[],'twist',[],...
+        'delta',[],'effect_stress',[]);
 
 % Store all data from test
 for mats = 1:6
@@ -71,13 +74,16 @@ for k = 1:length(materials)
                     % If bar configuration passes strength requirements
                     if (twist<(twist_max)) && (delta<(delta_tot)) && (effect_stress<(materials(k).Y./2))
                         % Write current bar configurations to the struct of optimal design
-                        if (weight > 0) && (weight < optimal_beam.Weight)
+                        if (weight < optimal_beam.Weight)
                             optimal_beam.Material = materials(k).Material;
                             optimal_beam.Weight = weight;
                             optimal_beam.ri1 = ri1_;
                             optimal_beam.ri2 = ri2_;
                             optimal_beam.ro1 = ro1(p);
                             optimal_beam.ro2 = ro2_;
+                            optimal_beam.twist = twist;
+                            optimal_beam.delta = delta;
+                            optimal_beam.effect_stress = effect_stress;
                             
                             fprintf('Optimal Updated with %s, iteration %d...\n',materials(k).Material,iter)
                             iter = iter+1;
@@ -96,5 +102,5 @@ for k = 1:length(materials)
         end
     end
 end
-save('Results_Aluminum_Only')
+% save('Results_Aluminum_Only')
 
